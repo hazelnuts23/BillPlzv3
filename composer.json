@@ -1,0 +1,25 @@
+{
+  "name": "hazelnuts23/billplzv3",
+  "description": "BillPlz API v3 for Laravel 5",
+  "keywords": [
+    "Billplz",
+    "Malaysia",
+    "Kidino",
+    "hazelnuts23"
+  ],
+  "authors": [
+    {
+      "name": "Mohd Syafiq Azizi",
+      "email": "hazelnuts23@gmail.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "database"
+    ],
+    "psr-4": {
+      "hazelnuts23\\BillPlzv3\\": "vendor/hazelnuts23/BillPlzv3/src"
+    }
+  },
+  "minimum-stability": "stable"
+}
