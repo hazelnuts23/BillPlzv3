@@ -4,7 +4,7 @@ Before we get started, check out https://www.billplz.com/api
 
 Require this package with composer using the following command:
 
-    composer require "hazelnuts23\BillPlzv3:1.0.*"
+    composer require "hazelnuts23\BillPlzv3:1.1.*"
 
 After updating composer, add the `BillPlzv3ServiceProvider` to the `providers` array in `config/app.php`
 
