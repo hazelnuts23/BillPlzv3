@@ -4,7 +4,7 @@ namespace hazelnuts23\BillPlzv3;
 
 class Billplzv3
 {
-    private $host = 'https://www.billplz.com/api/v3';
+    private $host = config('billplz.'.env('APP_ENV', 'https://www.billplz.com/api/v3/'));
     private $data = array();
     private $api_key = '';
     private $ch;

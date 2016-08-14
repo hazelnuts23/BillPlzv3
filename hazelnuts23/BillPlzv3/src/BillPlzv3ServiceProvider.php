@@ -18,6 +18,11 @@ class BillPlzv3ServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // publish configuration file
+        $this->publishes([
+            __DIR__.'/config/billplz.php' => config_path('billplz.php')
+        ], 'config');
+
         // use this if your package has views
         $this->loadViewsFrom(realpath(__DIR__.'/resources/views'), 'BillPlzv3');
 
@@ -31,6 +36,7 @@ class BillPlzv3ServiceProvider extends ServiceProvider
         $this->registerBillPlz();
 
     }
+
     private function registerBillPlz()
     {
         $this->app->bind('BillPlzv3',function($app){
