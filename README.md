@@ -2,33 +2,21 @@
 
 Before we get started, check out https://www.billplz.com/api
 
-Download hazelnuts/BillPlzv3 and extract to
+Require this package with composer using the following command:
 
-```  
-vendor/ 
-```
+    composer require "hazelnuts23\BillPlzv3:1.0.*"
 
-Open app.php in config/app.php. Add this in Providers
+After updating composer, add the `BillPlzv3ServiceProvider` to the `providers` array in `config/app.php`
 
-```
- 'providers' => [
-  ....
-  ....
-  hazelnuts23\BillPlzv3\BillPlzv3ServiceProvider::class,
-  ...
-```
+    hazelnuts23\BillPlzv3\BillPlzv3ServiceProvider::class,
 
-Add this in Aliases
+And `BillPlz` alias to the `aliases` array in `config/app.php`
 
-```
-    'aliases' => [
-    ....
-  'BillPlz' => hazelnuts23\BillPlzv3\Billplzv3::class,
-  ...
-```
+    'BillPlz' => hazelnuts23\BillPlzv3\Billplzv3::class,
   
 Use BillPlzPaymentController.php inside Controllers as a references
-```
+
+``` php
 <?php
 
 namespace App\Http\Controllers;
