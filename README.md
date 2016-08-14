@@ -13,48 +13,47 @@ After updating composer, add the `BillPlzv3ServiceProvider` to the `providers` a
 And `BillPlz` alias to the `aliases` array in `config/app.php`
 
     'BillPlz' => hazelnuts23\BillPlzv3\Billplzv3::class,
+
+Run `php artisan vendor:publish` and `config/billplz.php` will be created for you to configure BillPlz API.
   
-Use BillPlzPaymentController.php inside Controllers as a references
+Sample Usage
 
 ``` php
 <?php
 
 namespace App\Http\Controllers;
 
-use Response;
-use View;
-use Illuminate\Support\Facades\Input;
-use hazelnuts23\BillPlzv3\Billplzv3;
+use Illuminate\Http\Request;
 
+use App\Http\Requests;
+
+use hazelnuts23\BillPlzv3\Billplzv3;
 
 class BillPlzPaymentController extends Controller
 {
-    public function index()
+    public function pay(Request $request)
     {
-        return View::make('index');
-    }
+        $title = $request->input('title');
+        $price = str_replace(".", "", $request->input('price'));
+        $fullname = $request->input('fullname');
+        $nric = $request->input('nric');
+        $email = $request->input('email');
+        $telno = $request->input('telno');
+        $description = $request->input('description');
 
-    public function createBill()
-    {
-        $title = Input::get('title');
-        $price = str_replace(".", "", Input::get('price'));
-        $fullname = Input::get('fullname');
-        $nric = Input::get('nric');
-        $email = Input::get('email');
-        $telno = Input::get('telno');
-        $description = Input::get('description');
-
-        $bplz = new Billplzv3(array('api_key' => 'YOUR SECRET API KEY'));
+        $bplz = new Billplzv3([
+            'api_key' => config('billplz.'.env('APP_ENV').'.api_key'),
+            'host' => config('billplz.'.env('APP_ENV').'.api_endpoint')
+        ]);
         $bplz->set_data('title', $title);
         $result = $bplz->create_collection();
         $result = json_decode($result);
         $id = $result->id;
 
-        $callback_url = 'http://' . $_SERVER['SERVER_NAME'] . '/payment/processing';
-        $redirect_url = 'http://' . $_SERVER['SERVER_NAME'] . '/payment/complete/';
+        $callback_url = url('/payment/processing');
+        $redirect_url = url('/payment/complete/');
 
-        $secret_key = $this->generateRandomString(42);
-
+        $secret_key = str_random(42);
 
         $bplz->set_data(array(
             'collection_id' => $id,
@@ -69,23 +68,11 @@ class BillPlzPaymentController extends Controller
             'metadata[nric]' => $nric
         ));
 
-
         $result = json_decode($bplz->create_bill());
-        return Response::json($result);
-        
-    }
-
-    function generateRandomString($length)
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
+        return response()->json($result);
     }
 }
+
 
 ```
 
