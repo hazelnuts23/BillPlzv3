@@ -5,18 +5,20 @@
     "Billplz",
     "Malaysia",
     "Kidino",
-    "hazelnuts23"
+    "hazelnuts23",
+    "nasrulhazim"
   ],
   "authors": [
     {
       "name": "Mohd Syafiq Azizi",
       "email": "hazelnuts23@gmail.com"
+    },
+    {
+      "name": "Nasrul Hazim",
+      "email": "nasrulhazim.m@gmail.com"
     }
   ],
   "autoload": {
-    "classmap": [
-      "database"
-    ],
     "psr-4": {
       "hazelnuts23\\BillPlzv3\\": "vendor/hazelnuts23/BillPlzv3/src"
     }
